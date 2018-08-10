@@ -1,0 +1,21 @@
+{
+  "name": "resizer",
+  "version": "0.0.1",
+  "description": "resizer images rest service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "resizer",
+    "images"
+  ],
+  "author": "Pedro Brasileiro",
+  "license": "ISC",
+  "dependencies": {
+    "circular-json": "^0.5.5",
+    "express": "^4.16.3",
+    "image-downloader": "^3.4.1",
+    "imagemagick": "^0.1.3"
+  }
+}

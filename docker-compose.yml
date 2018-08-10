@@ -1,0 +1,15 @@
+version: '3'
+
+services: 
+  server:
+    build: . 
+    ports:
+      - "5555:5555"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1GB
+        reservations:
+          cpus: '0.01'
+          memory: 512MB
