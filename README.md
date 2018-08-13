@@ -12,6 +12,10 @@ curl -X POST \
 	"width" : 100
 }'
 
+curl -X GET \
+  'http://localhost:5555/resize?height=100&remote_image=https://ideiagelada.files.wordpress.com/2011/09/uhuuu.png' \
+  -H 'Cache-Control: no-cache'
+
 
 Start Server
 --------
