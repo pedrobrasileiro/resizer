@@ -25,8 +25,10 @@
         return;
       }
 
+      console.debug(`image ${image} is valid!`);
+
       const optionsFeatures = {
-        url: image, 
+        url: image,
         dest: './tmp'
       }
 
@@ -37,9 +39,12 @@
           if (err) {
             // res.status(500).send(`quebrou véi... ${util.inspect(err)}`);
             reject(`error identify ==>> ${util.inspect(err)}`);
+            return;
           }
 
-          console.log(util.inspect(features));
+          if (!features.width) reject('this is not valid image');
+
+          // console.log(util.inspect(features));
 
           let destPath = `./tmp/${new Date().valueOf()}.${features.format}`;
           const optionsResize = {
@@ -53,22 +58,30 @@
           // console.log("options resize", util.inspect(optionsResize));
 
           im.resize(optionsResize, (err, stdout, stderr) => {
-            if (err) { 
+            if (err) {
               // console.error("error resize ", util.inspect(err));
               reject(`error resize ${util.inspect(err)}`);
+              return;
             }
 
             im.identify(destPath, function (err, featuresResized) {
+              if (err || !featuresResized) {
+                console.error(`error identify resized  ${util.inspect(err)}`);
+                reject('this is not valid image');
+                return;
+              }
+
               console.log(`Original size (WxH):${features.width}x${features.height} - resized size (WxH):${featuresResized.width}x${featuresResized.height}`);
             });
 
-            // res.sendFile(path.join(process.cwd(), destPath));
             resolve(destPath);
           });
         });
       }).catch((err) => {
         // res.status(500).send(`quebrou véi... ${util.inspect(err)}`);
-        reject(`quebrou véi... ${util.inspect(err)}`);
+        // reject(`quebrou véi... ${util.inspect(err)}`);
+        console.error(`generic error... ${util.inspect(err)}`);
+        reject('Não foi possível redimensionar a image');
       });
     });
   }

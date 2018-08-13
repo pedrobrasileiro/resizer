@@ -15,5 +15,5 @@ WORKDIR /resizer
 COPY package.json .
 COPY index.js .
 
-RUN npm install
+RUN npm install --package-lock
 CMD ["node", "index.js"]
