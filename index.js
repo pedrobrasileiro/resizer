@@ -35,9 +35,8 @@
       console.debug(`optionsFeatures => ${util.inspect(optionsFeatures)}`);
 
       download.image(optionsFeatures).then(({ filename, image }) => {
-        im.identify(filename, function (err, features) {
+        im.identify(filename, (err, features) => {
           if (err) {
-            // res.status(500).send(`quebrou véi... ${util.inspect(err)}`);
             reject(`error identify ==>> ${util.inspect(err)}`);
             return;
           }
@@ -59,7 +58,6 @@
 
           im.resize(optionsResize, (err, stdout, stderr) => {
             if (err) {
-              // console.error("error resize ", util.inspect(err));
               reject(`error resize ${util.inspect(err)}`);
               return;
             }
@@ -77,9 +75,7 @@
             resolve(destPath);
           });
         });
-      }).catch((err) => {
-        // res.status(500).send(`quebrou véi... ${util.inspect(err)}`);
-        // reject(`quebrou véi... ${util.inspect(err)}`);
+      }).catch(err => {
         console.error(`generic error... ${util.inspect(err)}`);
         reject('Não foi possível redimensionar a image');
       });
@@ -131,6 +127,6 @@
   });
 
   app.listen(5555, () => {
-    console.log('Example app listening on port 5555!');
+    console.log('Resizer listening on port 5555!');
   });
 })();
